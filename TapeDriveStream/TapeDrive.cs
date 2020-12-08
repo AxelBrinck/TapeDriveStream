@@ -15,6 +15,12 @@ namespace TapeDriveStream
                     "Unreadable stream provided.");
             }
 
+            if (!stream.CanWrite)
+            {
+                throw new InvalidOperationException(
+                    "Unwritable stream provided.");
+            }
+
             UnderlyingStream = stream;
         }
 
