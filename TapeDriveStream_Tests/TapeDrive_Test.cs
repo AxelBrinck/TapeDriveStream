@@ -62,6 +62,8 @@ namespace TapeDriveStream_Tests
                     stream
                 );
             }, "Expected TapeDrive to refuse unwritable streams.");
+            
+            stream.Dispose();
         }
     }
 }
