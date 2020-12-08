@@ -3,7 +3,7 @@ using System.IO;
 
 namespace TapeDriveStream
 {
-    public abstract class TapeDrive
+    public abstract class TapeDrive : IDisposable
     {
         public Stream UnderlyingStream { get; }
 
@@ -16,6 +16,12 @@ namespace TapeDriveStream
             }
 
             UnderlyingStream = stream;
+        }
+
+        public void Dispose()
+        {
+            UnderlyingStream.Flush();
+            UnderlyingStream.Close();
         }
     }
 }
