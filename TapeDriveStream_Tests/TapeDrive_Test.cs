@@ -1,10 +1,10 @@
 using System;
 using System.IO;
 using NUnit.Framework;
+using TapeDriveStream;
 
 namespace TapeDriveStream_Tests
 {
-    [TestFixture]
     public class Tests
     {
         private static readonly string TestFileName = "test.bin";
@@ -19,10 +19,12 @@ namespace TapeDriveStream_Tests
                 new BinaryWriter(
                     File.Open(
                         TestFileName, 
-                        FileMode.Open)))
+                        FileMode.Create,
+                        FileAccess.Write,
+                        FileShare.None)))
             {
                 for (var i = 0L; i < (1024 * 1024) / sizeof(decimal); i++)
-                {
+                {   
                     writer.Write(i);
                 }
             }
@@ -32,15 +34,15 @@ namespace TapeDriveStream_Tests
         public void Should_Refuse_Unreadable_Streams()
         {
             Assert.Throws<InvalidOperationException>(() => {
-                new BinaryWriter(
+                new Int32TapeDrive(
                     new FileStream(
                         TestFileName,
                         FileMode.Open,
-                        FileAccess.Write)
+                        FileAccess.Write,
+                        FileShare.None)
                 );
-            });
-
-            Assert.Pass();
+            }, $@"An unreadable stream pointing to {TestFileName} has been
+            provided and TapeDrive did not threw.");
         }
     }
 }
