@@ -21,6 +21,12 @@ namespace TapeDriveStream
                     "Unwritable stream provided.");
             }
 
+            if (!stream.CanSeek)
+            {
+                throw new InvalidOperationException(
+                    "Unseekable streams are not supported.");
+            }
+
             UnderlyingStream = stream;
         }
 

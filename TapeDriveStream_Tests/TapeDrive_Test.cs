@@ -40,7 +40,7 @@ namespace TapeDriveStream_Tests
                 FileShare.None);
 
             Assert.Throws<InvalidOperationException>(() => {
-                new Int32TapeDrive(
+                new TestTapeDrive(
                     stream
                 );
             }, "Expected TapeDrive to refuse unreadable streams.");
@@ -58,12 +58,20 @@ namespace TapeDriveStream_Tests
                 FileShare.None);
 
             Assert.Throws<InvalidOperationException>(() => {
-                new Int32TapeDrive(
+                new TestTapeDrive(
                     stream
                 );
             }, "Expected TapeDrive to refuse unwritable streams.");
             
             stream.Dispose();
+        }
+    }
+
+    public class TestTapeDrive : TapeDrive
+    {
+        public TestTapeDrive(Stream stream) : base(stream)
+        {
+            
         }
     }
 }
