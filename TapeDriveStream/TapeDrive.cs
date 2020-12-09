@@ -23,8 +23,9 @@ namespace TapeDriveStream
         /// <exception cref="System.InvalidOperationException">
         /// Thrown when unreadable/unwritable/unseekable stream is provided.
         /// </exception>
-        /// <param name="stream"></param>
-        public TapeDrive(Stream stream)
+        /// <param name="stream">The source stream to use.</param>
+        /// <param name="frameSize">The size in bytes of each frame.</param>
+        public TapeDrive(Stream stream, int frameSize)
         {
             if (!stream.CanRead)
             {

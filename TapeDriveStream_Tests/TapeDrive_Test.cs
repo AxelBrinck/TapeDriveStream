@@ -69,7 +69,7 @@ namespace TapeDriveStream_Tests
 
     public class TestTapeDrive : TapeDrive
     {
-        public TestTapeDrive(Stream stream) : base(stream)
+        public TestTapeDrive(Stream stream) : base(stream, sizeof(int))
         {
             
         }
