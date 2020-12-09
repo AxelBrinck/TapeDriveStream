@@ -7,18 +7,39 @@ namespace TapeDriveStream_Tests
 {
     public class Tests
     {
-        private static readonly string TestFileName = "test.bin";
+        private static readonly string SingleDecimalTestFileName
+            = "1-decimal-test.bin";
+        private static readonly string Int32TestFileName
+            = "1M-int32-test.bin";
 
         [SetUp]
         public void Setup()
         {
-            // Create a dummy file to perform test with
-            if (File.Exists(TestFileName)) File.Delete(TestFileName);
+            if (File.Exists(SingleDecimalTestFileName))
+            {
+                File.Delete(SingleDecimalTestFileName);
+            }
+
+            if (File.Exists(Int32TestFileName)) 
+            {
+                File.Delete(Int32TestFileName);
+            }
 
             using (var writer = 
                 new BinaryWriter(
                     File.Open(
-                        TestFileName, 
+                        SingleDecimalTestFileName, 
+                        FileMode.Create,
+                        FileAccess.Write,
+                        FileShare.None)))
+            {
+                writer.Write((byte) 0);
+            }
+
+            using (var writer = 
+                new BinaryWriter(
+                    File.Open(
+                        Int32TestFileName, 
                         FileMode.Create,
                         FileAccess.Write,
                         FileShare.None)))
@@ -34,13 +55,13 @@ namespace TapeDriveStream_Tests
         public void Should_Refuse_Unreadable_Streams()
         {
             var unreadableStream = new FileStream(
-                TestFileName,
+                Int32TestFileName,
                 FileMode.Open,
                 FileAccess.Write,
                 FileShare.None);
 
             Assert.Throws<InvalidOperationException>(() => {
-                new TestTapeDrive(
+                new Int32TestTapeDrive(
                     unreadableStream
                 );
             }, "Expected TapeDrive to refuse unreadable streams.");
@@ -52,13 +73,13 @@ namespace TapeDriveStream_Tests
         public void Should_Refuse_Unwritable_Streams()
         {
             var unwritableStream = new FileStream(
-                TestFileName,
+                Int32TestFileName,
                 FileMode.Open,
                 FileAccess.Read,
                 FileShare.None);
 
             Assert.Throws<InvalidOperationException>(() => {
-                new TestTapeDrive(
+                new Int32TestTapeDrive(
                     unwritableStream
                 );
             }, "Expected TapeDrive to refuse unwritable streams.");
@@ -70,7 +91,7 @@ namespace TapeDriveStream_Tests
         public void Should_Refuse_Zero_FrameSizes()
         {
             var stream = new FileStream(
-                TestFileName,
+                Int32TestFileName,
                 FileMode.Open,
                 FileAccess.ReadWrite,
                 FileShare.None);
@@ -88,7 +109,7 @@ namespace TapeDriveStream_Tests
         public void Should_Refuse_Negative_FrameSizes()
         {
             var stream = new FileStream(
-                TestFileName,
+                Int32TestFileName,
                 FileMode.Open,
                 FileAccess.ReadWrite,
                 FileShare.None);
@@ -101,11 +122,29 @@ namespace TapeDriveStream_Tests
             
             stream.Dispose();
         }
+        
+        [Test]
+        public void Should_Refuse_NonModZero_Streams()
+        {
+            var stream = new FileStream(
+                SingleDecimalTestFileName,
+                FileMode.Open,
+                FileAccess.ReadWrite,
+                FileShare.None);
+
+            Assert.Throws<InvalidDataException>(() => {
+                new Int32TestTapeDrive(
+                    stream
+                );
+            }, "Stream-length mod frame-size not zero.");
+
+            stream.Dispose();
+        }
     }
 
-    public class TestTapeDrive : TapeDrive<int>
+    public class Int32TestTapeDrive : TapeDrive<int>
     {
-        public TestTapeDrive(Stream stream) : base(stream, sizeof(int))
+        public Int32TestTapeDrive(Stream stream) : base(stream, sizeof(int))
         {
             
         }

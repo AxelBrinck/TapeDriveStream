@@ -68,10 +68,13 @@ namespace TapeDriveStream
                 );
             }
 
+            Console.WriteLine(StreamLength);
+            Console.WriteLine(frameSize);
+
             if (StreamLength % frameSize != 0)
             {
                 throw new InvalidDataException(
-                    "Stream-length mod frame-size is not zero."
+                    "Stream-length mod frame-size not zero."
                 );
             }
 
