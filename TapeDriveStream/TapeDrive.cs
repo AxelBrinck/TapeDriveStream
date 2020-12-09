@@ -19,6 +19,15 @@ namespace TapeDriveStream
         public int FrameSize { get; }
 
         /// <summary>
+        /// Retrieves a cached integer representing the stream length.
+        /// This number gets updated whenever we write additional frames to the
+        /// tape. 
+        /// TODO: Procedure to be written.
+        /// </summary>
+        /// <value>The stream length.</value>
+        public long StreamLength { get; }
+
+        /// <summary>
         /// Initializes a new instance of <see cref="UnderlyingStream"/> by
         /// providing a stream.
         /// </summary>
@@ -46,6 +55,8 @@ namespace TapeDriveStream
                 throw new InvalidOperationException(
                     "Unseekable streams are not supported.");
             }
+
+            StreamLength = stream.Length;
 
             if (frameSize < 1)
             {
