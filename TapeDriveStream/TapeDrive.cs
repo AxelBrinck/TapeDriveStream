@@ -3,7 +3,7 @@ using System.IO;
 
 namespace TapeDriveStream
 {
-    public abstract class TapeDrive : IDisposable
+    public abstract class TapeDrive<T> : IDisposable
     {
         /// <summary>
         /// Access to the underlying stream provided when
