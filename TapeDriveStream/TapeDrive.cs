@@ -41,19 +41,22 @@ namespace TapeDriveStream
             if (!stream.CanRead)
             {
                 throw new InvalidOperationException(
-                    "Unreadable stream provided.");
+                    "Unreadable stream provided."
+                );
             }
 
             if (!stream.CanWrite)
             {
                 throw new InvalidOperationException(
-                    "Unwritable stream provided.");
+                    "Unwritable stream provided."
+                );
             }
 
             if (!stream.CanSeek)
             {
                 throw new InvalidOperationException(
-                    "Unseekable streams are not supported.");
+                    "Unseekable streams are not supported."
+                );
             }
 
             StreamLength = stream.Length;
@@ -61,7 +64,15 @@ namespace TapeDriveStream
             if (frameSize < 1)
             {
                 throw new ArgumentException(
-                    $"Argument {nameof(frameSize)} expects numbers above 0.");
+                    $"Argument {nameof(frameSize)} expects numbers above 0."
+                );
+            }
+
+            if (StreamLength % frameSize != 0)
+            {
+                throw new InvalidDataException(
+                    "Stream-length mod frame-size is not zero."
+                );
             }
 
             FrameSize = frameSize;
