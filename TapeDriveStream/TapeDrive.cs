@@ -49,8 +49,7 @@ namespace TapeDriveStream
 
         public void Dispose()
         {
-            UnderlyingStream.Flush();
-            UnderlyingStream.Close();
+            UnderlyingStream.Dispose();
         }
     }
 }
