@@ -23,7 +23,7 @@ namespace TapeDriveStream_Tests
                         FileAccess.Write,
                         FileShare.None)))
             {
-                for (var i = 0L; i < (1024 * 1024) / sizeof(decimal); i++)
+                for (var i = 0m; i < (1024 * 1024) / sizeof(decimal); i++)
                 {   
                     writer.Write(i);
                 }
