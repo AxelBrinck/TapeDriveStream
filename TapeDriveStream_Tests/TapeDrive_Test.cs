@@ -33,7 +33,7 @@ namespace TapeDriveStream_Tests
         [Test]
         public void Should_Refuse_Unreadable_Streams()
         {
-            var stream = new FileStream(
+            var unreadableStream = new FileStream(
                 TestFileName,
                 FileMode.Open,
                 FileAccess.Write,
@@ -41,17 +41,17 @@ namespace TapeDriveStream_Tests
 
             Assert.Throws<InvalidOperationException>(() => {
                 new TestTapeDrive(
-                    stream
+                    unreadableStream
                 );
             }, "Expected TapeDrive to refuse unreadable streams.");
 
-            stream.Dispose();
+            unreadableStream.Dispose();
         }
 
         [Test]
         public void Should_Refuse_Unwritable_Streams()
         {
-            var stream = new FileStream(
+            var unwritableStream = new FileStream(
                 TestFileName,
                 FileMode.Open,
                 FileAccess.Read,
@@ -59,11 +59,11 @@ namespace TapeDriveStream_Tests
 
             Assert.Throws<InvalidOperationException>(() => {
                 new TestTapeDrive(
-                    stream
+                    unwritableStream
                 );
             }, "Expected TapeDrive to refuse unwritable streams.");
             
-            stream.Dispose();
+            unwritableStream.Dispose();
         }
 
         [Test]
