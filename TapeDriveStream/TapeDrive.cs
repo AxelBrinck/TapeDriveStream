@@ -16,6 +16,8 @@ namespace TapeDriveStream
         /// <value>The underlying stream.</value>
         public Stream UnderlyingStream { get; }
 
+        public int FrameSize { get; }
+
         /// <summary>
         /// Initializes a new instance of <see cref="UnderlyingStream"/> by
         /// providing a stream.
@@ -45,6 +47,13 @@ namespace TapeDriveStream
                     "Unseekable streams are not supported.");
             }
 
+            if (frameSize < 1)
+            {
+                throw new ArgumentException(
+                    $"Argument {nameof(frameSize)} expects numbers above 0.");
+            }
+
+            FrameSize = frameSize;
             UnderlyingStream = stream;
         }
 

@@ -65,11 +65,63 @@ namespace TapeDriveStream_Tests
             
             stream.Dispose();
         }
+
+        [Test]
+        public void Should_Refuse_Zero_FrameSizes()
+        {
+            var stream = new FileStream(
+                TestFileName,
+                FileMode.Open,
+                FileAccess.ReadWrite,
+                FileShare.None);
+
+            Assert.Throws<ArgumentException>(() => {
+                new ZeroFrameSizeTapeDrive(
+                    stream
+                );
+            }, "Argument frameSize expects numbers above 0.");
+
+            stream.Dispose();
+        }
+
+        [Test]
+        public void Should_Refuse_Negative_FrameSizes()
+        {
+            var stream = new FileStream(
+                TestFileName,
+                FileMode.Open,
+                FileAccess.ReadWrite,
+                FileShare.None);
+
+            Assert.Throws<ArgumentException>(() => {
+                new NegativeFrameSizeTapeDrive(
+                    stream
+                );
+            }, "Argument frameSize expects numbers above 0.");
+            
+            stream.Dispose();
+        }
     }
 
     public class TestTapeDrive : TapeDrive
     {
         public TestTapeDrive(Stream stream) : base(stream, sizeof(int))
+        {
+            
+        }
+    }
+
+    public class NegativeFrameSizeTapeDrive : TapeDrive
+    {
+        public NegativeFrameSizeTapeDrive(Stream stream) : base(stream, -1)
+        {
+            
+        }
+    }
+
+    public class ZeroFrameSizeTapeDrive : TapeDrive
+    {
+        public ZeroFrameSizeTapeDrive(Stream stream) : base(stream, 0)
         {
             
         }
