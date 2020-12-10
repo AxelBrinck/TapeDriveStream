@@ -16,7 +16,7 @@ namespace TapeDriveStream
         /// <value>The underlying stream.</value>
         internal Stream UnderlyingStream { get; }
 
-        public int FrameSize { get; }
+        internal int FrameSize { get; }
 
         /// <summary>
         /// Retrieves a cached integer representing the stream length.
