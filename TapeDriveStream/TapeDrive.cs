@@ -16,6 +16,13 @@ namespace TapeDriveStream
         /// <value>The underlying stream.</value>
         internal Stream UnderlyingStream { get; }
 
+        /// <summary>
+        /// The size in bytes for each element.
+        /// </summary>
+        /// <para>
+        /// Used to seek to X element and determinate stream corruption.
+        /// </para>
+        /// <value>The size for each element.</value>
         internal int FrameSize { get; }
 
         /// <summary>
