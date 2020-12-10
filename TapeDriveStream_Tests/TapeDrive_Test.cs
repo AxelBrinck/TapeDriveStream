@@ -148,6 +148,16 @@ namespace TapeDriveStream_Tests
         {
             
         }
+
+        protected override int[] Deserialize(byte[] serial)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override byte[] Serialize(int[] objects)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class NegativeFrameSizeTapeDrive : TapeDrive<int>
@@ -156,6 +166,16 @@ namespace TapeDriveStream_Tests
         {
             
         }
+
+        protected override int[] Deserialize(byte[] serial)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override byte[] Serialize(int[] objects)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class ZeroFrameSizeTapeDrive : TapeDrive<int>
@@ -163,6 +183,16 @@ namespace TapeDriveStream_Tests
         public ZeroFrameSizeTapeDrive(Stream stream) : base(stream, 0)
         {
             
+        }
+
+        protected override int[] Deserialize(byte[] serial)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override byte[] Serialize(int[] objects)
+        {
+            throw new NotImplementedException();
         }
     }
 }

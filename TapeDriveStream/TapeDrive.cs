@@ -27,12 +27,24 @@ namespace TapeDriveStream
 
         /// <summary>
         /// Retrieves a cached integer representing the stream length.
+        /// </summary>
+        /// <para>
         /// This number gets updated whenever we write additional frames to the
         /// tape. 
-        /// TODO: Procedure to be written.
-        /// </summary>
+        /// TODO: Feature yet to be written.
+        /// </para>
         /// <value>The stream length.</value>
         public long StreamLength { get; }
+
+        /// <summary>
+        /// In-memory stream-chunk representation.
+        /// </summary>
+        /// <para>
+        /// The stream buffer will lower the amount of disk-IO operations.
+        /// Gets generated using 
+        /// </para>
+        /// <value></value>
+        internal T[] Buffer { get; }
 
         /// <summary>
         /// Initializes a new instance of <see cref="UnderlyingStream"/> by
@@ -88,6 +100,10 @@ namespace TapeDriveStream
             FrameSize = frameSize;
             UnderlyingStream = stream;
         }
+
+        protected abstract T[] Deserialize(byte[] serial);
+
+        protected abstract byte[] Serialize(T[] objects);
 
         public void Dispose()
         {

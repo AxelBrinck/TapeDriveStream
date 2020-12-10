@@ -8,5 +8,15 @@ namespace TapeDriveStream
         {
             
         }
+
+        protected override int[] Deserialize(byte[] serial)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override byte[] Serialize(int[] objects)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
