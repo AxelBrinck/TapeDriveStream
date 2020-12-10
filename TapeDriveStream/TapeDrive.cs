@@ -14,7 +14,7 @@ namespace TapeDriveStream
         /// data-corruption.
         /// </para>
         /// <value>The underlying stream.</value>
-        public Stream UnderlyingStream { get; }
+        internal Stream UnderlyingStream { get; }
 
         public int FrameSize { get; }
 
