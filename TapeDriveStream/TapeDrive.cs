@@ -53,6 +53,12 @@ namespace TapeDriveStream
         /// <exception cref="System.InvalidOperationException">
         /// Thrown when unreadable/unwritable/unseekable stream is provided.
         /// </exception>
+        /// <exception cref="System.ArgumentException">
+        /// When invalid frame-size provided.
+        /// </exception>
+        /// <exception cref="System.IO.InvalidDataException">
+        /// Thrown when corrupted stream.
+        /// </exception>
         /// <param name="stream">The source stream to use.</param>
         /// <param name="frameSize">The size in bytes of each frame.</param>
         public TapeDrive(Stream stream, int frameSize)
@@ -101,8 +107,18 @@ namespace TapeDriveStream
             UnderlyingStream = stream;
         }
 
+        /// <summary>
+        /// Converts a byte-array to object-array.
+        /// </summary>
+        /// <param name="serial">The byte array to be converted.</param>
+        /// <returns>The converted array of objects.</returns>
         protected abstract T[] Deserialize(byte[] serial);
 
+        /// <summary>
+        /// Converts an array of objects to byte-array.
+        /// </summary>
+        /// <param name="objects">The array of objects to be converted.</param>
+        /// <returns>The resulting byte array.</returns>
         protected abstract byte[] Serialize(T[] objects);
 
         public void Dispose()
