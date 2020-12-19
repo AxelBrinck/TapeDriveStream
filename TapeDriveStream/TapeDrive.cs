@@ -53,14 +53,17 @@ namespace TapeDriveStream
         /// Thrown when unreadable/unwritable/unseekable stream is provided.
         /// </exception>
         /// <exception cref="System.ArgumentException">
-        /// When invalid frame-size provided.
+        /// When invalid frame-size is provided.
         /// </exception>
         /// <exception cref="System.IO.InvalidDataException">
         /// Thrown when corrupted stream.
         /// </exception>
         /// <param name="stream">The source stream to use.</param>
-        /// <param name="frameSize">The size in bytes of each frame.</param>
-        public TapeDrive(Stream stream, int frameSize)
+        /// <param name="frameSize">The size in bytes for each frame.</param>
+        /// <param name="framesToBuffer">
+        /// The maximum number of frames to read at once from the stream.
+        /// </param>
+        public TapeDrive(Stream stream, int frameSize, int framesToBuffer)
         {
             if (!stream.CanRead)
             {

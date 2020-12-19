@@ -144,7 +144,7 @@ namespace TapeDriveStream_Tests
 
     public class Int32TestTapeDrive : TapeDrive<int>
     {
-        public Int32TestTapeDrive(Stream stream) : base(stream, sizeof(int))
+        public Int32TestTapeDrive(Stream stream) : base(stream, sizeof(int), 16)
         {
             
         }
@@ -162,7 +162,7 @@ namespace TapeDriveStream_Tests
 
     public class NegativeFrameSizeTapeDrive : TapeDrive<int>
     {
-        public NegativeFrameSizeTapeDrive(Stream stream) : base(stream, -1)
+        public NegativeFrameSizeTapeDrive(Stream stream) : base(stream, -1, 16)
         {
             
         }
@@ -180,7 +180,7 @@ namespace TapeDriveStream_Tests
 
     public class ZeroFrameSizeTapeDrive : TapeDrive<int>
     {
-        public ZeroFrameSizeTapeDrive(Stream stream) : base(stream, 0)
+        public ZeroFrameSizeTapeDrive(Stream stream) : base(stream, 0, 16)
         {
             
         }
