@@ -46,6 +46,8 @@ namespace TapeDriveStream
         /// <value></value>
         private T[] _buffer { get; }
 
+        private readonly int _maxFramesToBuffer;
+
         /// <summary>
         /// Initializes a new instance of <see cref="TapeDrive"/>.
         /// </summary>
@@ -60,10 +62,10 @@ namespace TapeDriveStream
         /// </exception>
         /// <param name="stream">The source stream to use.</param>
         /// <param name="frameSize">The size in bytes for each frame.</param>
-        /// <param name="framesToBuffer">
+        /// <param name="maxFramesToBuffer">
         /// The maximum number of frames to read at once from the stream.
         /// </param>
-        public TapeDrive(Stream stream, int frameSize, int framesToBuffer)
+        public TapeDrive(Stream stream, int frameSize, int maxFramesToBuffer)
         {
             if (!stream.CanRead)
             {
@@ -104,6 +106,7 @@ namespace TapeDriveStream
 
             _frameSize = frameSize;
             _underlyingStream = stream;
+            _maxFramesToBuffer = maxFramesToBuffer;
         }
 
         /// <summary>
