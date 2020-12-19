@@ -95,9 +95,6 @@ namespace TapeDriveStream
                 );
             }
 
-            Console.WriteLine(StreamLength);
-            Console.WriteLine(frameSize);
-
             if (StreamLength % frameSize != 0)
             {
                 throw new InvalidDataException(
